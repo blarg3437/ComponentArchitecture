@@ -1,0 +1,8 @@
+﻿TODO:
+1. Add the game screens
+2. In one of those gamescreens, add the loading for some of the actors and their components.
+3. Make a test scene.
+4. Set up a resource manager(texture loading, etc).
+5. Add a dialog component
+6. Add a Quest system.
+7. Figure out a way to import tiled maps.

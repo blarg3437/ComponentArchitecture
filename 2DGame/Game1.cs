@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using _2DGame.GameStates;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -11,38 +12,30 @@ namespace _2DGame
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        GameStates.StateController stateController;
+        StateController StateController;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            StateController = new StateController();
         }
 
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
+        
         protected override void Initialize()
         {
+            IsMouseVisible = true;
             // TODO: Add your initialization logic here
-
+            StateController.Initialize();
             base.Initialize();
         }
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
+        
         protected override void LoadContent()
         {
             
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            
-            //
-           
+            StateController.Load(Content);
         }
 
         protected override void UnloadContent()
@@ -56,17 +49,18 @@ namespace _2DGame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
-
+            StateController.Update(gameTime);
             base.Update(gameTime);
         }
 
      
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Coral);
-
-            // TODO: Add your drawing code here
+            GraphicsDevice.Clear(Color.Black);
+            spriteBatch.Begin();
+            StateController.Draw(spriteBatch);
+            spriteBatch.End();
+            
 
             base.Draw(gameTime);
         }

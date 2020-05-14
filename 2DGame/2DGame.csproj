@@ -41,22 +41,10 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Actors\ActorBase.cs" />
-    <Compile Include="Actors\ActorFactory.cs" />
-    <Compile Include="Functionality\Dialog.cs" />
-    <Compile Include="Actors\Enemy.cs" />
-    <Compile Include="Actors\IComponentHolder.cs" />
-    <Compile Include="Actors\NPC.cs" />
-    <Compile Include="Components\Animation.cs" />
-    <Compile Include="Components\BaseComponent.cs" />
-    <Compile Include="Components\Collider\BaseCollider.cs" />
-    <Compile Include="Components\Collider\SquareCollider.cs" />
-    <Compile Include="Components\CompTypes.cs" />
-    <Compile Include="Components\TestComponent.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="GameStates\BaseState.cs" />
-    <Compile Include="GameStates\GamePlayState.cs" />
-    <Compile Include="GameStates\LoadingState.cs" />
+    <Compile Include="GameStates\GamePlayLoop.cs" />
+    <Compile Include="GameStates\IGameState.cs" />
+    <Compile Include="GameStates\Menu.cs" />
     <Compile Include="GameStates\StateController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -76,6 +64,7 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

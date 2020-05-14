@@ -1,6 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,58 +11,71 @@ using System.Threading.Tasks;
 
 namespace _2DGame.GameStates
 {
-    /// <summary>
-    /// this will follow a singleton pattern, and keep track of the state the game is in.
-    /// </summary>
     class StateController
     {
-        //all of this makes this a singleton I guess...
-        public static StateController instance;
-        static StateController()
+        Stack<IGameState> theStack;
+        Dictionary<string, IGameState> gamestates;
+        
+        public StateController()
         {
-        }
-        private StateController()
-        { }
-        public static StateController Instance
-        {
-            get { return instance; }
-        }
-        //End of the singleton implimentation
-
-
-        BaseState currentState;
-        private List<BaseState> _states = new List<BaseState>(){
-            new GameStates.GamePlayState(),
-            new GameStates.LoadingState(),
-        }; 
-        public void changeState(BaseState newState)
-        {
-            currentState.UnloadContent();
-            currentState = newState;
-            currentState.LoadContent();
-            
+            gamestates = new Dictionary<string, IGameState>();         
+            theStack = new Stack<IGameState>();
+           
         }
 
         public void Initialize()
         {
-            //a little bit of test code
-            
+            gamestates.Add("level1", new GamePlayLoop());
+            gamestates.Add("Main Menu", new Menu("Load"));
+
+
+
+
+            theStack.Push(gamestates["level1"]);
         }
-
-        public void LoadContent()
+        public void Load(ContentManager content)
         {
-
+            foreach (var item in gamestates)
+            {
+                item.Value.Load(content);
+            }
         }
 
         public void Update(GameTime gametime)
         {
-            currentState.Update(gametime);
-        }
-        public void Draw(SpriteBatch spritebatch)
-        {
-            currentState.Draw(spritebatch);
+            KeyboardState keys = Keyboard.GetState();
+
+            if (keys.IsKeyDown(Keys.Space))
+            {
+               if(theStack.Peek().Equals(gamestates["Main Menu"]))
+                {
+                    Push(gamestates["level1"]);
+                }
+                else
+                {
+                    Push(gamestates["Main Menu"]);
+                }
+                
+            }
+
+            theStack.Peek().Update(gametime);
         }
 
-        
+        public void Draw(SpriteBatch spritebatch)
+        {
+            theStack.Peek().Draw(spritebatch);
+        }
+
+        //------------------------------------------------------------------------------------------------------\\
+
+        public void Push(IGameState newstate)
+        {
+            theStack.Push(newstate);
+        }
+ 
+        public void Pop()
+        {
+            theStack.Pop();
+        }
     }
 }

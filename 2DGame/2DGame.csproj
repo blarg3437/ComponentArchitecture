@@ -42,7 +42,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Actors\ActorBase.cs" />
+    <Compile Include="Actors\ActorFactory.cs" />
+    <Compile Include="Functionality\Dialog.cs" />
+    <Compile Include="Actors\Enemy.cs" />
     <Compile Include="Actors\IComponentHolder.cs" />
+    <Compile Include="Actors\NPC.cs" />
     <Compile Include="Components\Animation.cs" />
     <Compile Include="Components\BaseComponent.cs" />
     <Compile Include="Components\Collider\BaseCollider.cs" />
@@ -50,6 +54,10 @@
     <Compile Include="Components\CompTypes.cs" />
     <Compile Include="Components\TestComponent.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="GameStates\BaseState.cs" />
+    <Compile Include="GameStates\GamePlayState.cs" />
+    <Compile Include="GameStates\LoadingState.cs" />
+    <Compile Include="GameStates\StateController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

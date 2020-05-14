@@ -13,13 +13,21 @@ namespace _2DGame.Actors
 {
     class ActorBase : IComponentHolder
     {
-        protected Vector2 positon;
-        public float GetX => positon.X;
-        public float GetY => positon.Y;
+        protected Vector2 position;
+        public int ID { get; protected set; }
+        public Rectangle sourceRec;
+        public float GetX => position.X;
+        public float GetY => position.Y;
 
         //this is where the magic happens. Within this dictionary, are all of the component that will make up this actor
         protected Dictionary<CompTypes.Type, BaseComponent> _Components;
 
+        public ActorBase(Vector2 pos, int id)
+        {
+            position = pos;
+            ID = id;
+           
+        }
         public void AddComponent(CompTypes.Type typetocreate)
         {
             //Im just gonna say i, I dont really like how this method is witten, I think that it could be handled better, I want to rewrite it in the future...
@@ -44,7 +52,7 @@ namespace _2DGame.Actors
             }
         }
 
-
+        
 
     }
 }

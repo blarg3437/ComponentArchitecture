@@ -18,9 +18,10 @@ namespace _2DGame
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            StateController = new StateController();
+            StateController = new StateController( graphics);
         }
 
+        
         
         protected override void Initialize()
         {

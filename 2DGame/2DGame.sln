@@ -5,16 +5,30 @@ VisualStudioVersion = 16.0.29911.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2DGame", "2DGame.csproj", "{A9255B29-CF06-4A4C-9AF7-2D0D4E243AEE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Editor", "..\Editor\Editor.csproj", "{F78D4352-4740-4DEE-8C8C-A94737299346}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A9255B29-CF06-4A4C-9AF7-2D0D4E243AEE}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{A9255B29-CF06-4A4C-9AF7-2D0D4E243AEE}.Debug|x86.ActiveCfg = Debug|x86
 		{A9255B29-CF06-4A4C-9AF7-2D0D4E243AEE}.Debug|x86.Build.0 = Debug|x86
+		{A9255B29-CF06-4A4C-9AF7-2D0D4E243AEE}.Release|Any CPU.ActiveCfg = Release|x86
 		{A9255B29-CF06-4A4C-9AF7-2D0D4E243AEE}.Release|x86.ActiveCfg = Release|x86
 		{A9255B29-CF06-4A4C-9AF7-2D0D4E243AEE}.Release|x86.Build.0 = Release|x86
+		{F78D4352-4740-4DEE-8C8C-A94737299346}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F78D4352-4740-4DEE-8C8C-A94737299346}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F78D4352-4740-4DEE-8C8C-A94737299346}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F78D4352-4740-4DEE-8C8C-A94737299346}.Debug|x86.Build.0 = Debug|Any CPU
+		{F78D4352-4740-4DEE-8C8C-A94737299346}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F78D4352-4740-4DEE-8C8C-A94737299346}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F78D4352-4740-4DEE-8C8C-A94737299346}.Release|x86.ActiveCfg = Release|Any CPU
+		{F78D4352-4740-4DEE-8C8C-A94737299346}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

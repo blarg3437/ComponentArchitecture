@@ -9,24 +9,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace _2DGame.GameStates
 {
     class StateController
     {
         Stack<IGameState> theStack;
         Dictionary<string, IGameState> gamestates;
-        
-        public StateController()
+        GraphicsDeviceManager graphics;
+        public StateController(GraphicsDeviceManager g)
         {
             gamestates = new Dictionary<string, IGameState>();         
             theStack = new Stack<IGameState>();
-           
+            graphics = g;
         }
 
         public void Initialize()
         {
-            gamestates.Add("level1", new GamePlayLoop());
-            gamestates.Add("Main Menu", new Menu("Load"));
+            gamestates.Add("level1", new GamePlayLoop("Levels/Standard/tilea4", graphics.GraphicsDevice));
+            gamestates.Add("level2", new GamePlayLoop("Item/roguelikeitems", graphics.GraphicsDevice));
+            gamestates.Add("MainMenu", new Menu("Load"));
 
 
 
@@ -47,14 +49,15 @@ namespace _2DGame.GameStates
 
             if (keys.IsKeyDown(Keys.Space))
             {
-               if(theStack.Peek().Equals(gamestates["Main Menu"]))
+                if(theStack.Peek().Equals(gamestates["level1"]))
                 {
-                    Push(gamestates["level1"]);
+                    Push(gamestates["level2"]);
                 }
-                else
+               if(theStack.Peek().Equals(gamestates["level2"]))
                 {
-                    Push(gamestates["Main Menu"]);
+
                 }
+                
                 
             }
 

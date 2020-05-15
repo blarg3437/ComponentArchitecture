@@ -1,0 +1,7 @@
+﻿TODO:
+
+Add selection for texture times
+Add loading and saving of maps
+exporting
+mainmap scrolling
+fixing the offset issue

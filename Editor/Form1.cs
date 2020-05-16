@@ -15,21 +15,30 @@ using System.Windows.Media;
 namespace Editor
 {
     public partial class Form1 : Form
-    {
-        Image nelson;
+    {        
         Map map;
         int TextureSize = 64;
+        List<Image> textures;
         public Form1()
         {
-            InitializeComponent();
-            nelson = Bitmap.FromFile(@"C:\Users\Nicholas\Pictures\photo.jpg");
+            InitializeComponent();           
             map = new Map(32,32);
             map.AddLayer();
+            textures = new List<Image>();
         }
 
         private void addTexturesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            TextureImportForm newwindow = new TextureImportForm();
+            newwindow.Submitted += ConsumeList;
+            newwindow.Activate();
+            newwindow.Show();
+        }
+
+        public void ConsumeList(List<Image> images)
+        {
+            Console.WriteLine("Consumed!");
+            textures = images;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -42,13 +51,27 @@ namespace Editor
         private void MainDisplay_Paint(object sender, PaintEventArgs e)
         {
             //have one of these for every single dayum 
+            int counter = 0;
+            int height = 0;
+            foreach (Image item in textures)
+            {
+                e.Graphics.DrawImage(item, counter * TextureSize,height*TextureSize);
+                if(counter == 7)
+                {
+                    counter = 0;
+                    height++;
+                }
+                counter++;
+            }
             for (int i = 0; i < map.sizeX; i++)
             {
                 for (int j = 0; j < map.sizeY; j++)
                 {
                     if(map.GetTileAt(0, i,j) == 1)
                     {
-                        e.Graphics.DrawImage(nelson, new Rectangle(i * TextureSize, j * TextureSize, TextureSize, TextureSize), new Rectangle(0, 0, 48, 48), GraphicsUnit.Pixel);
+                        e.Graphics.DrawImage(textures[4], 
+                            new Rectangle(i * TextureSize, j * TextureSize, TextureSize, TextureSize), 
+                            new Rectangle(0, 0, TextureSize, TextureSize), GraphicsUnit.Pixel);
                     }
                 }
             }

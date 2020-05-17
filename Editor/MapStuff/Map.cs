@@ -77,9 +77,9 @@ namespace Editor.MapStuff
 
         private bool CheckCollisionAt(int x, int y)
         {
-            if (x > 0 && x <= sizeX)
+            if (x > 0 && x < sizeX)
             {
-                if (y > 0 && y <= sizeY)
+                if (y > 0 && y < sizeY)
                 {
                     return true;
                 }

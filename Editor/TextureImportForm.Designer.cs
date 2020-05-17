@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.TexLocation = new System.Windows.Forms.TextBox();
             this.Submit = new System.Windows.Forms.Button();
@@ -36,10 +37,12 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.TSizeInX = new System.Windows.Forms.TextBox();
             this.SizeSelPanel = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.TSizeInY = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SizeSelPanel.SuspendLayout();
             this.SuspendLayout();
@@ -62,7 +65,7 @@
             // 
             // Submit
             // 
-            this.Submit.Location = new System.Drawing.Point(198, 16);
+            this.Submit.Location = new System.Drawing.Point(13, 169);
             this.Submit.Name = "Submit";
             this.Submit.Size = new System.Drawing.Size(75, 20);
             this.Submit.TabIndex = 2;
@@ -96,9 +99,9 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.TexLocation);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.Submit);
             this.panel1.Location = new System.Drawing.Point(16, 121);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(267, 42);
@@ -123,14 +126,12 @@
             this.SizeSelPanel.Size = new System.Drawing.Size(108, 53);
             this.SizeSelPanel.TabIndex = 7;
             // 
-            // label2
+            // TSizeInY
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(4, 4);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(66, 13);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Texture Size";
+            this.TSizeInY.Location = new System.Drawing.Point(61, 18);
+            this.TSizeInY.Name = "TSizeInY";
+            this.TSizeInY.Size = new System.Drawing.Size(32, 20);
+            this.TSizeInY.TabIndex = 9;
             // 
             // label3
             // 
@@ -141,12 +142,14 @@
             this.label3.TabIndex = 8;
             this.label3.Text = "X";
             // 
-            // TSizeInY
+            // label2
             // 
-            this.TSizeInY.Location = new System.Drawing.Point(61, 18);
-            this.TSizeInY.Name = "TSizeInY";
-            this.TSizeInY.Size = new System.Drawing.Size(32, 20);
-            this.TSizeInY.TabIndex = 9;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(4, 4);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(66, 13);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Texture Size";
             // 
             // label5
             // 
@@ -158,18 +161,35 @@
             this.label5.Size = new System.Drawing.Size(0, 16);
             this.label5.TabIndex = 8;
             // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(198, 16);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(66, 21);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Browse";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // TextureImportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(288, 169);
+            this.ClientSize = new System.Drawing.Size(288, 191);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.SizeSelPanel);
+            this.Controls.Add(this.Submit);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.TexSheetIn);
             this.Controls.Add(this.SingleTexIn);
             this.Name = "TextureImportForm";
-            this.Text = "TextureImportForm";
+            this.Text = "Select A Texture";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.SizeSelPanel.ResumeLayout(false);
@@ -192,5 +212,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }

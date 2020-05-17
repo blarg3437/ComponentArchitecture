@@ -30,7 +30,7 @@ namespace Editor
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.TextureSearch = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.MainDisplay = new System.Windows.Forms.Panel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -50,12 +50,14 @@ namespace Editor
             ((System.ComponentModel.ISupportInitialize)(this.eventLog1)).BeginInit();
             this.SuspendLayout();
             // 
-            // textBox1
+            // TextureSearch
             // 
-            this.textBox1.Location = new System.Drawing.Point(992, 42);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(179, 20);
-            this.textBox1.TabIndex = 1;
+            this.TextureSearch.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.TextureSearch.Enabled = false;
+            this.TextureSearch.Location = new System.Drawing.Point(992, 42);
+            this.TextureSearch.Name = "TextureSearch";
+            this.TextureSearch.Size = new System.Drawing.Size(179, 20);
+            this.TextureSearch.TabIndex = 1;
             // 
             // button1
             // 
@@ -129,26 +131,26 @@ namespace Editor
             // exportToolStripMenuItem
             // 
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.exportToolStripMenuItem.Text = "Export";
             // 
             // importToolStripMenuItem
             // 
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.importToolStripMenuItem.Text = "Import";
             // 
             // addTexturesToolStripMenuItem
             // 
             this.addTexturesToolStripMenuItem.Name = "addTexturesToolStripMenuItem";
-            this.addTexturesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addTexturesToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.addTexturesToolStripMenuItem.Text = "AddTextures";
             this.addTexturesToolStripMenuItem.Click += new System.EventHandler(this.addTexturesToolStripMenuItem_Click);
             // 
             // layersToolStripMenuItem
             // 
             this.layersToolStripMenuItem.Name = "layersToolStripMenuItem";
-            this.layersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.layersToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.layersToolStripMenuItem.Text = "Layers";
             // 
             // eventLog1
@@ -163,7 +165,6 @@ namespace Editor
             this.TextureList.Size = new System.Drawing.Size(241, 513);
             this.TextureList.TabIndex = 7;
             this.TextureList.UseCompatibleStateImageBehavior = false;
-            this.TextureList.SelectedIndexChanged += new System.EventHandler(this.TextureList_SelectedIndexChanged);
             // 
             // vScrollBar1
             // 
@@ -181,12 +182,13 @@ namespace Editor
             this.Controls.Add(this.MainDisplay);
             this.Controls.Add(this.TextureList);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.TextureSearch);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "MapEditor";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.eventLog1)).EndInit();
@@ -196,7 +198,7 @@ namespace Editor
         }
 
         #endregion
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox TextureSearch;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel MainDisplay;
         private System.Windows.Forms.MenuStrip menuStrip1;

@@ -22,41 +22,31 @@ namespace Editor
         {
             InitializeComponent();
             textures = new List<Image>();
+            TexSheetIn.Checked = true;
         }
 
         private void Submit_Click(object sender, EventArgs e)
         {
             //I do not have any handling for a file that is bigger than the specified size...
             //probably handle this by creating a new image from the top left X specified size  
-
-            if (SingleTexIn.Checked)
+            Image selected;
+            try
             {
-                Image selected;
-                try
-                {
-                    selected = Image.FromFile(TexLocation.Text);
-                }
-                catch (FileNotFoundException)
-                {
-                    SystemSounds.Exclamation.Play();
-                    label5.Text = "!";
-                    return;
-                }
+                selected = Image.FromFile(TexLocation.Text);
+            }
+            catch (FileNotFoundException)
+            {
+                SystemSounds.Exclamation.Play();
+                label5.Text = "!";
+                return;
+            }
+            if (SingleTexIn.Checked)
+            {               
                 textures.Add(selected);
             }
             if (TexSheetIn.Checked)
             {
-                Image selected;
-                try
-                {
-                    selected = Image.FromFile(TexLocation.Text);
-                }
-                catch (FileNotFoundException)
-                {
-                    SystemSounds.Exclamation.Play();
-                    label5.Text = "!";
-                    return;
-                }
+                
 
                 //add a try statement or something here to handle if the boxes arent filled
                 int TWidth = int.Parse(TSizeInX.Text);
@@ -97,6 +87,15 @@ namespace Editor
 
             }
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
+            OpenFileDialog whereto = new OpenFileDialog();
+            whereto.InitialDirectory = @"C:\Users\Nicholas\Pictures";
+            whereto.ShowDialog();
+            TexLocation.Text = whereto.FileName;
         }
     }
 }

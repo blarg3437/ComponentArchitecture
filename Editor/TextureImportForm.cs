@@ -16,8 +16,9 @@ namespace Editor
     public partial class TextureImportForm : Form
     {
         List<Image> textures;
-        public delegate void TexSelSubmit(List<Image> textures);
+        public delegate void TexSelSubmit(List<Image> textures, int tsize);
         public event TexSelSubmit Submitted;
+        int TSize;
         public TextureImportForm()
         {
             InitializeComponent();
@@ -51,6 +52,7 @@ namespace Editor
                 //add a try statement or something here to handle if the boxes arent filled
                 int TWidth = int.Parse(TSizeInX.Text);
                 int THeight = int.Parse(TSizeInY.Text);
+                TSize = TWidth;
                 for (int x = 0; x < selected.Width / TWidth; x++)//here needs to be a tryparse thing to make sure they entered an integer.
                 {
                     for (int y = 0; y < selected.Height / THeight; y++)
@@ -66,7 +68,7 @@ namespace Editor
                     }
                 }
             }
-            Submitted(textures);
+            Submitted(textures, TSize);
             this.Close();
         }
 

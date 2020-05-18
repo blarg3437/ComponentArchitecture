@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
@@ -21,9 +22,13 @@ namespace Editor
         Map map;
         int TextureSize = 64;
         List<Image> textures;
-        private bool FirstDraw = false;
+        Dictionary<int, PictureBox> itemsinholder;       
         int mouseXOffset = 0;
         int mouseYOffset = 0;
+        int columns;
+        int heightofImageStack = 0;
+        int oldoffset = 0;
+        int currentTextureData = 0;
         Graphics g;
         public Form1()
         {
@@ -31,8 +36,11 @@ namespace Editor
             map = new Map(32, 32);
             map.AddLayer();
             textures = new List<Image>();
+            itemsinholder = new Dictionary<int, PictureBox>();
             KeyPreview = true;
+            vScrollBar1.Enabled = false;
             MainDisplay.Enabled = false;//making sure you cant click before you load
+
             g = MainDisplay.CreateGraphics();
         }
 
@@ -45,13 +53,56 @@ namespace Editor
 
         }
 
-        public void ConsumeList(List<Image> images)
+        public void ConsumeList(List<Image> images, int texsize)
         {
+            TextureSize = texsize;
             Console.WriteLine("Consumed!");
             textures = images;
             MainDisplay.Invalidate();
             MainDisplay.Enabled = true;
+            vScrollBar1.Enabled = true;
             g.Clear(System.Drawing.Color.Black);
+
+            int count = 0;
+            //loading the sidebar full of the images
+            foreach (Image item in textures)
+            {
+                PictureBox pb = new PictureBox();
+                
+                pb.Parent = ImageHolder;
+                pb.Size = new System.Drawing.Size(TextureSize, TextureSize);
+                pb.Image = item;
+                pb.MouseClick += TextureClickHandler;
+                itemsinholder.Add(count, pb);
+                ImageHolder.Controls.Add(itemsinholder[count]);
+                count++;
+            }
+            //draw the actual sidebar full of images
+            int xover = 0;
+            int yover = 0;
+            columns = ImageHolder.Width / TextureSize;
+            foreach (KeyValuePair<int, PictureBox> item in itemsinholder)
+            {
+                
+                item.Value.Location = new System.Drawing.Point(
+                    xover * TextureSize,
+                    yover * TextureSize);
+                
+                item.Value.Show();
+                
+
+                if (xover % columns == 0 && xover != 0)
+                {
+                    xover = 0;
+                    yover++;
+                }
+                else
+                {
+                    xover++;
+                }
+            }
+
+            heightofImageStack = yover;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -67,8 +118,8 @@ namespace Editor
             int MouseY = (MousePosition.Y - Location.Y - MainDisplay.Top - 35) / TextureSize;
             Console.WriteLine("MouseY: " + MousePosition.Y + "LocationY: " + Location.Y + "Top:" + MainDisplay.Top + "Final: " + MouseY);
 
-            map.ModifyLayer(0, MouseX - mouseXOffset, MouseY - mouseYOffset, 1);//make sure to put in collisiomn for the edge of the array
-            drawStuff(MouseX, MouseY);
+            map.ModifyLayer(0, MouseX - mouseXOffset, MouseY - mouseYOffset, currentTextureData);//make sure to put in collisiomn for the edge of the array
+            
 
             #region debug
             //This is all debugging-----------------------------
@@ -85,14 +136,16 @@ namespace Editor
             UpdateScreen();
         }
 
-        private void drawStuff(int x, int y)
+        public void TextureClickHandler(object sender, EventArgs e)
         {
-
-            //g.DrawImage(textures[0],
-            //        new Rectangle((x) * TextureSize, (y) * TextureSize, TextureSize, TextureSize),
-            //        new Rectangle(0, 0, TextureSize, TextureSize), GraphicsUnit.Pixel);
-
-
+            foreach (var item in itemsinholder)
+            {               
+                if(item.Value.Equals(sender))
+                {
+                    currentTextureData = item.Key;
+                    return;
+                }
+            }
         }
 
         private void Form1_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
@@ -134,14 +187,31 @@ namespace Editor
             {
                 for (int j = 0; j < map.sizeY; j++)
                 {
-                    if (map.GetTileAt(0, i, j) == 1)
-                    {
-                        g.DrawImage(textures[0],
-                            new Rectangle((i) * TextureSize, (j) * TextureSize, TextureSize, TextureSize),
+                   //if (map.GetTileAt(0, i, j) == 1)
+                   //{
+                   //    g.DrawImage(textures[0],
+                   //        new Rectangle((i) * TextureSize, (j) * TextureSize, TextureSize, TextureSize),
+                   //        new Rectangle(0, 0, TextureSize, TextureSize), GraphicsUnit.Pixel);
+                   //}
+
+                    g.DrawImage(textures[map.GetTileAt(0, i,j)], 
+                        new Rectangle((i) * TextureSize, (j) * TextureSize, TextureSize, TextureSize),
                             new Rectangle(0, 0, TextureSize, TextureSize), GraphicsUnit.Pixel);
-                    }
                 }
             }
+        }
+
+        
+
+        private void vScrollBar1_ValueChanged(object sender, EventArgs e)
+        {
+            int yoffset = -TextureSize*(heightofImageStack * vScrollBar1.Value) / 100;
+            foreach (var item in itemsinholder)
+            {
+
+                item.Value.Location = new System.Drawing.Point(item.Value.Location.X, item.Value.Location.Y - oldoffset + yoffset);
+            }
+            oldoffset = yoffset;
         }
     }
 }

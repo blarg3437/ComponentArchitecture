@@ -44,7 +44,7 @@ namespace Editor
             this.addTexturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.layersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eventLog1 = new System.Diagnostics.EventLog();
-            this.TextureList = new System.Windows.Forms.ListView();
+            this.ImageHolder = new System.Windows.Forms.Panel();
             this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.eventLog1)).BeginInit();
@@ -76,7 +76,6 @@ namespace Editor
             this.MainDisplay.Size = new System.Drawing.Size(962, 540);
             this.MainDisplay.TabIndex = 5;
             this.MainDisplay.Click += new System.EventHandler(this.MainDisplay_Click);
-            this.MainDisplay.Paint += new System.Windows.Forms.PaintEventHandler(this.MainDisplay_Paint);
             // 
             // menuStrip1
             // 
@@ -157,21 +156,21 @@ namespace Editor
             // 
             this.eventLog1.SynchronizingObject = this;
             // 
-            // TextureList
+            // ImageHolder
             // 
-            this.TextureList.HideSelection = false;
-            this.TextureList.Location = new System.Drawing.Point(991, 71);
-            this.TextureList.Name = "TextureList";
-            this.TextureList.Size = new System.Drawing.Size(241, 513);
-            this.TextureList.TabIndex = 7;
-            this.TextureList.UseCompatibleStateImageBehavior = false;
+            this.ImageHolder.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ImageHolder.Location = new System.Drawing.Point(980, 68);
+            this.ImageHolder.Name = "ImageHolder";
+            this.ImageHolder.Size = new System.Drawing.Size(237, 511);
+            this.ImageHolder.TabIndex = 9;
             // 
             // vScrollBar1
             // 
-            this.vScrollBar1.Location = new System.Drawing.Point(1235, 71);
+            this.vScrollBar1.Location = new System.Drawing.Point(1224, 72);
             this.vScrollBar1.Name = "vScrollBar1";
-            this.vScrollBar1.Size = new System.Drawing.Size(17, 513);
-            this.vScrollBar1.TabIndex = 8;
+            this.vScrollBar1.Size = new System.Drawing.Size(17, 510);
+            this.vScrollBar1.TabIndex = 10;
+            this.vScrollBar1.ValueChanged += new System.EventHandler(this.vScrollBar1_ValueChanged);
             // 
             // Form1
             // 
@@ -179,8 +178,8 @@ namespace Editor
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 681);
             this.Controls.Add(this.vScrollBar1);
+            this.Controls.Add(this.ImageHolder);
             this.Controls.Add(this.MainDisplay);
-            this.Controls.Add(this.TextureList);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.TextureSearch);
             this.Controls.Add(this.menuStrip1);
@@ -212,8 +211,8 @@ namespace Editor
         private System.Windows.Forms.ToolStripMenuItem addTexturesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem layersToolStripMenuItem;
         private System.Diagnostics.EventLog eventLog1;
+        private System.Windows.Forms.Panel ImageHolder;
         private System.Windows.Forms.VScrollBar vScrollBar1;
-        private System.Windows.Forms.ListView TextureList;
     }
 }
 

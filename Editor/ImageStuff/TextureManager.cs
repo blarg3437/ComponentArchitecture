@@ -7,8 +7,11 @@ using System.Threading.Tasks;
 
 namespace Editor.ImageStuff
 {
-    class Texture
+    class TextureManager
     {
-       
+        public void AddTextureClick(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

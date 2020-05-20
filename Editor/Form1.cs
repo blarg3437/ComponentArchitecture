@@ -1,4 +1,5 @@
-﻿using Editor.MapStuff;
+﻿using Editor.ImageStuff;
+using Editor.MapStuff;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,19 +21,21 @@ namespace Editor
         //test file: C:\Users\Nicholas\Source\Repos\blarg3437\ComponentArchitecture\2DGame\Content\Levels\Standard\tilea4.png
 
         Map map;
-        int TextureSize = 64;
-        List<Image> textures;
-        Dictionary<int, PictureBox> itemsinholder;       
+        TextureManager manager;
+        int TextureSize = 64;      
         int mouseXOffset = 0;
         int mouseYOffset = 0;
         int columns;
         int heightofImageStack = 0;
         int oldoffset = 0;
         int currentTextureData = 0;
+        Dictionary<int, PictureBox> itemsinholder;       
+        List<Image> textures; 
         Graphics g;
         public Form1()
         {
             InitializeComponent();
+            manager = new TextureManager();
             map = new Map(32, 32);
             map.AddLayer();
             textures = new List<Image>();
@@ -50,6 +53,7 @@ namespace Editor
             newwindow.Submitted += ConsumeList;
             newwindow.Activate();
             newwindow.Show();
+            
 
         }
 

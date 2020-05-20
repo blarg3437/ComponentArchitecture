@@ -22,108 +22,43 @@ namespace Editor
 
         Map map;
         TextureManager manager;
-        int TextureSize = 64;      
         int mouseXOffset = 0;
         int mouseYOffset = 0;
-        int columns;
-        int heightofImageStack = 0;
-        int oldoffset = 0;
-        int currentTextureData = 0;
-        Dictionary<int, PictureBox> itemsinholder;       
-        List<Image> textures; 
         Graphics g;
+
         public Form1()
         {
             InitializeComponent();
-            manager = new TextureManager();
+            manager = new TextureManager(this);
             map = new Map(32, 32);
             map.AddLayer();
-            textures = new List<Image>();
-            itemsinholder = new Dictionary<int, PictureBox>();
+
             KeyPreview = true;
             vScrollBar1.Enabled = false;
             MainDisplay.Enabled = false;//making sure you cant click before you load
 
+            addTexturesToolStripMenuItem.Click += new EventHandler(manager.AddTextureClick);
+
+            tabControl1.SelectedIndexChanged += new EventHandler(manager.TabChangedHandler);
+            vScrollBar1.Scroll += manager.ScrollBarChange;
             g = MainDisplay.CreateGraphics();
         }
-
-        private void addTexturesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            TextureImportForm newwindow = new TextureImportForm();
-            newwindow.Submitted += ConsumeList;
-            newwindow.Activate();
-            newwindow.Show();
-            
-
-        }
-
-        public void ConsumeList(List<Image> images, int texsize)
-        {
-            TextureSize = texsize;
-            Console.WriteLine("Consumed!");
-            textures = images;
-            MainDisplay.Invalidate();
-            MainDisplay.Enabled = true;
-            vScrollBar1.Enabled = true;
-            g.Clear(System.Drawing.Color.Black);
-
-            int count = 0;
-            //loading the sidebar full of the images
-            foreach (Image item in textures)
-            {
-                PictureBox pb = new PictureBox();
-                
-                pb.Parent = ImageHolder;
-                pb.Size = new System.Drawing.Size(TextureSize, TextureSize);
-                pb.Image = item;
-                pb.MouseClick += TextureClickHandler;
-                itemsinholder.Add(count, pb);
-                ImageHolder.Controls.Add(itemsinholder[count]);
-                count++;
-            }
-            //draw the actual sidebar full of images
-            int xover = 0;
-            int yover = 0;
-            columns = ImageHolder.Width / TextureSize;
-            foreach (KeyValuePair<int, PictureBox> item in itemsinholder)
-            {
-                
-                item.Value.Location = new System.Drawing.Point(
-                    xover * TextureSize,
-                    yover * TextureSize);
-                
-                item.Value.Show();
-                
-
-                if (xover % columns == 0 && xover != 0)
-                {
-                    xover = 0;
-                    yover++;
-                }
-                else
-                {
-                    xover++;
-                }
-            }
-
-            heightofImageStack = yover;
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            //the following code should be called after the texture is loaded in
-
-
-        }
+        #region SomePropertiesOfControls
+        public TabControl GetTabControl() => tabControl1;
+        public Panel getMainDisplay() => MainDisplay;
+        public Panel GetTexturePicker() => ImageHolder;
+        public VScrollBar GetTextureScrollBar() => vScrollBar1;
+        public Graphics getGraphics() => g;
+        #endregion      
 
         private void MainDisplay_Click(object sender, EventArgs e)
         {
-            int MouseX = (MousePosition.X - Location.X - MainDisplay.Left - 6) / TextureSize;//6 and 34 represent the width and height of the border of the window
-            int MouseY = (MousePosition.Y - Location.Y - MainDisplay.Top - 35) / TextureSize;
+            int MouseX = (MousePosition.X - Location.X - MainDisplay.Left - 6) / manager.TextureSize;//6 and 34 represent the width and height of the border of the window
+            int MouseY = (MousePosition.Y - Location.Y - MainDisplay.Top - 35) / manager.TextureSize;
             Console.WriteLine("MouseY: " + MousePosition.Y + "LocationY: " + Location.Y + "Top:" + MainDisplay.Top + "Final: " + MouseY);
 
-            map.ModifyLayer(0, MouseX - mouseXOffset, MouseY - mouseYOffset, currentTextureData);//make sure to put in collisiomn for the edge of the array
-            
+            map.ModifyLayer(0, MouseX - mouseXOffset, MouseY - mouseYOffset, manager.currentTextureData);//make sure to put in collisiomn for the edge of the array
+
 
             #region debug
             //This is all debugging-----------------------------
@@ -140,17 +75,7 @@ namespace Editor
             UpdateScreen();
         }
 
-        public void TextureClickHandler(object sender, EventArgs e)
-        {
-            foreach (var item in itemsinholder)
-            {               
-                if(item.Value.Equals(sender))
-                {
-                    currentTextureData = item.Key;
-                    return;
-                }
-            }
-        }
+
 
         private void Form1_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
@@ -178,7 +103,7 @@ namespace Editor
             }
             mouseXOffset += xOffset; //adding the values of 1 or -1 or 0 to the total mouse offset
             mouseYOffset += yOffset;
-            g.TranslateTransform(xOffset * TextureSize, yOffset * TextureSize);//actually changing the position of the objects on the screen
+            g.TranslateTransform(xOffset * manager.TextureSize, yOffset * manager.TextureSize);//actually changing the position of the objects on the screen
             UpdateScreen();
 
         }
@@ -186,36 +111,32 @@ namespace Editor
         private void UpdateScreen()
         {
             //just drawing the screen
+            int TextureSize = manager.TextureSize;
             g.Clear(System.Drawing.Color.Black);
             for (int i = 0; i < map.sizeX; i++)
             {
                 for (int j = 0; j < map.sizeY; j++)
                 {
-                   //if (map.GetTileAt(0, i, j) == 1)
-                   //{
-                   //    g.DrawImage(textures[0],
-                   //        new Rectangle((i) * TextureSize, (j) * TextureSize, TextureSize, TextureSize),
-                   //        new Rectangle(0, 0, TextureSize, TextureSize), GraphicsUnit.Pixel);
-                   //}
-
-                    g.DrawImage(textures[map.GetTileAt(0, i,j)], 
-                        new Rectangle((i) * TextureSize, (j) * TextureSize, TextureSize, TextureSize),
-                            new Rectangle(0, 0, TextureSize, TextureSize), GraphicsUnit.Pixel);
+                    //if (map.GetTileAt(0, i, j) == 1)
+                    //{
+                    //    g.DrawImage(textures[0],
+                    //        new Rectangle((i) * TextureSize, (j) * TextureSize, TextureSize, TextureSize),
+                    //        new Rectangle(0, 0, TextureSize, TextureSize), GraphicsUnit.Pixel);
+                    //}
+                    if (map.GetTileAt(0,i, j) != 0)
+                    {
+                        g.DrawImage(manager.FindMyImage(map.GetTileAt(0, i, j)),
+                            new Rectangle((i) * TextureSize, (j) * TextureSize, TextureSize, TextureSize),
+                                new Rectangle(0, 0, TextureSize, TextureSize), GraphicsUnit.Pixel);
+                    }
                 }
             }
         }
 
-        
 
-        private void vScrollBar1_ValueChanged(object sender, EventArgs e)
-        {
-            int yoffset = -TextureSize*(heightofImageStack * vScrollBar1.Value) / 100;
-            foreach (var item in itemsinholder)
-            {
 
-                item.Value.Location = new System.Drawing.Point(item.Value.Location.X, item.Value.Location.Y - oldoffset + yoffset);
-            }
-            oldoffset = yoffset;
-        }
+
+
+
     }
 }

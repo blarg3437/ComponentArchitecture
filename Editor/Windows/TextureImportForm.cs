@@ -16,7 +16,7 @@ namespace Editor
     public partial class TextureImportForm : Form
     {
         List<Image> textures;
-        public delegate void TexSelSubmit(List<Image> textures, int tsize);
+        public delegate void TexSelSubmit(List<Image> textures, int tsize, string layerName);
         public event TexSelSubmit Submitted;
         int TSize;
         public TextureImportForm()
@@ -24,6 +24,7 @@ namespace Editor
             InitializeComponent();
             textures = new List<Image>();
             TexSheetIn.Checked = true;
+            TexSheetName.MouseClick += ClickOnName;
         }
 
         private void Submit_Click(object sender, EventArgs e)
@@ -68,7 +69,7 @@ namespace Editor
                     }
                 }
             }
-            Submitted(textures, TSize);
+            Submitted(textures, TSize, TexSheetName.Text);
             this.Close();
         }
 
@@ -98,6 +99,13 @@ namespace Editor
             whereto.InitialDirectory = @"C:\Users\Nicholas\Pictures";
             whereto.ShowDialog();
             TexLocation.Text = whereto.FileName;
+
+            
+        }
+
+        private void ClickOnName(object sender, EventArgs e)
+        {
+            TexSheetName.Text = "";
         }
     }
 }

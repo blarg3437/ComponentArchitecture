@@ -46,6 +46,7 @@ namespace Editor
             this.eventLog1 = new System.Diagnostics.EventLog();
             this.ImageHolder = new System.Windows.Forms.Panel();
             this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.eventLog1)).BeginInit();
             this.SuspendLayout();
@@ -144,7 +145,6 @@ namespace Editor
             this.addTexturesToolStripMenuItem.Name = "addTexturesToolStripMenuItem";
             this.addTexturesToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.addTexturesToolStripMenuItem.Text = "AddTextures";
-            this.addTexturesToolStripMenuItem.Click += new System.EventHandler(this.addTexturesToolStripMenuItem_Click);
             // 
             // layersToolStripMenuItem
             // 
@@ -159,9 +159,9 @@ namespace Editor
             // ImageHolder
             // 
             this.ImageHolder.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.ImageHolder.Location = new System.Drawing.Point(980, 68);
+            this.ImageHolder.Location = new System.Drawing.Point(980, 89);
             this.ImageHolder.Name = "ImageHolder";
-            this.ImageHolder.Size = new System.Drawing.Size(237, 511);
+            this.ImageHolder.Size = new System.Drawing.Size(237, 490);
             this.ImageHolder.TabIndex = 9;
             // 
             // vScrollBar1
@@ -170,13 +170,21 @@ namespace Editor
             this.vScrollBar1.Name = "vScrollBar1";
             this.vScrollBar1.Size = new System.Drawing.Size(17, 510);
             this.vScrollBar1.TabIndex = 10;
-            this.vScrollBar1.ValueChanged += new System.EventHandler(this.vScrollBar1_ValueChanged);
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Location = new System.Drawing.Point(980, 68);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(237, 22);
+            this.tabControl1.TabIndex = 11;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.vScrollBar1);
             this.Controls.Add(this.ImageHolder);
             this.Controls.Add(this.MainDisplay);
@@ -186,7 +194,7 @@ namespace Editor
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "MapEditor";
-            this.Load += new System.EventHandler(this.Form1_Load);
+           
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -213,6 +221,7 @@ namespace Editor
         private System.Diagnostics.EventLog eventLog1;
         private System.Windows.Forms.Panel ImageHolder;
         private System.Windows.Forms.VScrollBar vScrollBar1;
+        private System.Windows.Forms.TabControl tabControl1;
     }
 }
 

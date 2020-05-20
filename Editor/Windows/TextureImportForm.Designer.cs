@@ -35,6 +35,7 @@
             this.SingleTexIn = new System.Windows.Forms.RadioButton();
             this.TexSheetIn = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.TSizeInX = new System.Windows.Forms.TextBox();
             this.SizeSelPanel = new System.Windows.Forms.Panel();
             this.TSizeInY = new System.Windows.Forms.TextBox();
@@ -42,7 +43,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.button1 = new System.Windows.Forms.Button();
+            this.TexSheetName = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SizeSelPanel.SuspendLayout();
             this.SuspendLayout();
@@ -58,14 +60,14 @@
             // 
             // TexLocation
             // 
-            this.TexLocation.Location = new System.Drawing.Point(6, 16);
+            this.TexLocation.Location = new System.Drawing.Point(5, 17);
             this.TexLocation.Name = "TexLocation";
             this.TexLocation.Size = new System.Drawing.Size(186, 20);
             this.TexLocation.TabIndex = 1;
             // 
             // Submit
             // 
-            this.Submit.Location = new System.Drawing.Point(13, 169);
+            this.Submit.Location = new System.Drawing.Point(132, 189);
             this.Submit.Name = "Submit";
             this.Submit.Size = new System.Drawing.Size(75, 20);
             this.Submit.TabIndex = 2;
@@ -106,6 +108,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(267, 42);
             this.panel1.TabIndex = 5;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(198, 16);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(66, 21);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Browse";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // TSizeInX
             // 
@@ -167,21 +179,29 @@
             this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // button1
+            // TexSheetName
             // 
-            this.button1.Location = new System.Drawing.Point(198, 16);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(66, 21);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Browse";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.TexSheetName.Location = new System.Drawing.Point(21, 189);
+            this.TexSheetName.Name = "TexSheetName";
+            this.TexSheetName.Size = new System.Drawing.Size(100, 20);
+            this.TexSheetName.TabIndex = 9;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(21, 170);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(105, 13);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Texture Sheet Name";
             // 
             // TextureImportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(288, 191);
+            this.ClientSize = new System.Drawing.Size(288, 221);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.TexSheetName);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.SizeSelPanel);
             this.Controls.Add(this.Submit);
@@ -214,5 +234,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.TextBox TexSheetName;
+        private System.Windows.Forms.Label label4;
     }
 }

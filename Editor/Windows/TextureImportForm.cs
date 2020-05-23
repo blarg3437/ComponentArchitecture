@@ -99,8 +99,8 @@ namespace Editor
             whereto.InitialDirectory = @"C:\Users\Nicholas\Pictures";
             whereto.ShowDialog();
             TexLocation.Text = whereto.FileName;
-
-            
+            TexSheetName.Text = whereto.FileName;
+            TexSheetName.Focus();
         }
 
         private void ClickOnName(object sender, EventArgs e)

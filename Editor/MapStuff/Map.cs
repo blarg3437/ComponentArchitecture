@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Resources;
 using System.Text;
@@ -37,6 +38,16 @@ namespace Editor.MapStuff
         {
             return MapLayers[layer].GetTileAt(x, y);
         }
+
+        public void Save(StreamWriter writer)
+        {
+            writer.WriteLine(sizeX);
+            writer.WriteLine(sizeY);
+            foreach (var item in MapLayers)
+            {
+                item.WriteLayer(writer);               
+            }
+        }
     }
 
     internal class Layers
@@ -54,6 +65,19 @@ namespace Editor.MapStuff
             terrainData = new int[sizeX, sizeY];
         }
 
+        public int[,] SaveLayer => terrainData;
+        public void WriteLayer(StreamWriter writer)
+        {
+            for (int i = 0; i < sizeY; i++)
+            {
+                for (int j = 0; j < sizeX; j++)
+                {
+                    writer.Write(terrainData[j, i]);
+                }
+                writer.WriteLine();
+
+            }
+        }
         public bool ChangeTile(int x, int y, int data)
         {
             if (CheckCollisionAt(x, y))
@@ -75,6 +99,7 @@ namespace Editor.MapStuff
             return 0;
         }
 
+       
         private bool CheckCollisionAt(int x, int y)
         {
             if (x > 0 && x < sizeX)
@@ -86,5 +111,7 @@ namespace Editor.MapStuff
             }
             return false;
         }
+
+       
     }
 }

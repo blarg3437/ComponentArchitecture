@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -36,6 +37,8 @@ namespace Editor
             KeyPreview = true;
             vScrollBar1.Enabled = false;
             MainDisplay.Enabled = false;//making sure you cant click before you load
+            ImageHolder.VerticalScroll.Enabled = true;
+            LayerSelector.ReadOnly = true;
 
             addTexturesToolStripMenuItem.Click += new EventHandler(manager.AddTextureClick);
 
@@ -105,7 +108,7 @@ namespace Editor
             mouseYOffset += yOffset;
             g.TranslateTransform(xOffset * manager.TextureSize, yOffset * manager.TextureSize);//actually changing the position of the objects on the screen
             UpdateScreen();
-
+            
         }
 
         private void UpdateScreen()
@@ -133,10 +136,23 @@ namespace Editor
             }
         }
 
+        private void ImageHolder_Scroll(object sender, ScrollEventArgs e)
+        {
+            
+            Console.WriteLine("Scroll");
+        }
 
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            StreamWriter writer = new StreamWriter(@"C:\Users\Nicholas\Desktop\Save.txt", false, Encoding.Default);
+            map.Save(writer);
+            writer.Close();
 
+        }
 
-
-
+        private void LayerSelector_Click(object sender, EventArgs e)
+        {
+          
+        }
     }
 }

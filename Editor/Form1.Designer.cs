@@ -30,8 +30,7 @@ namespace Editor
         /// </summary>
         private void InitializeComponent()
         {
-            this.TextureSearch = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.components = new System.ComponentModel.Container();
             this.MainDisplay = new System.Windows.Forms.Panel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,34 +39,20 @@ namespace Editor
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addTexturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.layersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eventLog1 = new System.Diagnostics.EventLog();
             this.ImageHolder = new System.Windows.Forms.Panel();
             this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.LayerSelector = new System.Windows.Forms.DomainUpDown();
+            this.LayerDropDown = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.eventLog1)).BeginInit();
+            this.LayerDropDown.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // TextureSearch
-            // 
-            this.TextureSearch.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.TextureSearch.Enabled = false;
-            this.TextureSearch.Location = new System.Drawing.Point(992, 42);
-            this.TextureSearch.Name = "TextureSearch";
-            this.TextureSearch.Size = new System.Drawing.Size(179, 20);
-            this.TextureSearch.TabIndex = 1;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(1178, 42);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Search";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // MainDisplay
             // 
@@ -102,26 +87,26 @@ namespace Editor
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.loadToolStripMenuItem.Text = "Load";
             // 
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.newToolStripMenuItem.Text = "New";
             // 
             // mapToolStripMenuItem
             // 
             this.mapToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exportToolStripMenuItem,
-            this.importToolStripMenuItem,
             this.addTexturesToolStripMenuItem,
             this.layersToolStripMenuItem});
             this.mapToolStripMenuItem.Name = "mapToolStripMenuItem";
@@ -131,25 +116,19 @@ namespace Editor
             // exportToolStripMenuItem
             // 
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exportToolStripMenuItem.Text = "Export";
-            // 
-            // importToolStripMenuItem
-            // 
-            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.importToolStripMenuItem.Text = "Import";
             // 
             // addTexturesToolStripMenuItem
             // 
             this.addTexturesToolStripMenuItem.Name = "addTexturesToolStripMenuItem";
-            this.addTexturesToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.addTexturesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.addTexturesToolStripMenuItem.Text = "AddTextures";
             // 
             // layersToolStripMenuItem
             // 
             this.layersToolStripMenuItem.Name = "layersToolStripMenuItem";
-            this.layersToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.layersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.layersToolStripMenuItem.Text = "Layers";
             // 
             // eventLog1
@@ -179,34 +158,60 @@ namespace Editor
             this.tabControl1.Size = new System.Drawing.Size(237, 22);
             this.tabControl1.TabIndex = 11;
             // 
+            // LayerSelector
+            // 
+            this.LayerSelector.Location = new System.Drawing.Point(980, 42);
+            this.LayerSelector.Name = "LayerSelector";
+            this.LayerSelector.Size = new System.Drawing.Size(120, 20);
+            this.LayerSelector.TabIndex = 12;
+            this.LayerSelector.Text = "Layer1";
+            this.LayerSelector.Click += new System.EventHandler(this.LayerSelector_Click);
+            // 
+            // LayerDropDown
+            // 
+            this.LayerDropDown.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deleteToolStripMenuItem,
+            this.renameToolStripMenuItem});
+            this.LayerDropDown.Name = "LayerDropDown";
+            this.LayerDropDown.Size = new System.Drawing.Size(118, 48);
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            // 
+            // renameToolStripMenuItem
+            // 
+            this.renameToolStripMenuItem.Name = "renameToolStripMenuItem";
+            this.renameToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.renameToolStripMenuItem.Text = "Rename";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.Controls.Add(this.LayerSelector);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.vScrollBar1);
             this.Controls.Add(this.ImageHolder);
             this.Controls.Add(this.MainDisplay);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.TextureSearch);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "MapEditor";
-           
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.eventLog1)).EndInit();
+            this.LayerDropDown.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.TextBox TextureSearch;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel MainDisplay;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
@@ -215,13 +220,16 @@ namespace Editor
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mapToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addTexturesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem layersToolStripMenuItem;
         private System.Diagnostics.EventLog eventLog1;
         private System.Windows.Forms.Panel ImageHolder;
         private System.Windows.Forms.VScrollBar vScrollBar1;
         private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.DomainUpDown LayerSelector;
+        private System.Windows.Forms.ContextMenuStrip LayerDropDown;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem renameToolStripMenuItem;
     }
 }
 

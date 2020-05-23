@@ -57,6 +57,7 @@ namespace Editor.ImageStuff
             //this should fire off the indexchangedevent
             ListOfPages.Add(newestPage);
             parent.getMainDisplay().Enabled = true;
+            parent.getGraphics().Clear(Color.Black);
         }
 
         public void TabChangedHandler(object sender, EventArgs e)
@@ -99,5 +100,7 @@ namespace Editor.ImageStuff
             //now that I have found the texturesheet I'm in, its time to find the right texture
             return ListOfPages[tabId].getItem(index).Image;
         }
+
+
     }
 }

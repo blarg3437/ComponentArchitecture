@@ -185,6 +185,7 @@
             this.TexSheetName.Name = "TexSheetName";
             this.TexSheetName.Size = new System.Drawing.Size(100, 20);
             this.TexSheetName.TabIndex = 9;
+            
             // 
             // label4
             // 

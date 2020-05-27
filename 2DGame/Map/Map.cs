@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Resources;
@@ -21,6 +21,24 @@ namespace Editor.MapStuff
             MapLayers = new List<Layers>();
         }
 
+        public static Map ReadInMap(StreamReader stream)
+        {
+            try
+            {
+                //first read in the size of the map...
+                int sX = Int16.Parse(stream.ReadLine());
+                int sY = Int16.Parse(stream.ReadLine());
+                for (int i = 0; i < sX * sY; i++)
+                {
+
+                }
+            }
+            catch
+            {
+                return null;
+            }
+
+        }
         public void AddLayer()
         {
             MapLayers.Add(new Layers(sizeX, sizeY, MapLayers.Count));//this creates the layer with knowledge on its level from 1-inf, not 0-inf
@@ -40,35 +58,48 @@ namespace Editor.MapStuff
             return MapLayers[layer].GetTileAt(x, y);
         }
 
+        public void GenerateMap()
+        {
+            Random rand = new Random();
+            //This method will contain a random map generator, which should eventually take some values to determine how this will look.
+            //ie: contains water, contains lakes, etc
+            if(MapLayers.Count == 0)
+            {
+                AddLayer();
+            }
+            for (int y = 0; y < sizeY; y++)
+            {
+                for (int x = 0; x < sizeX; x++)
+                {
+                    ModifyLayer(0, x, y, rand.Next(5));//between 0 and 5
+                }
+            }
+        }
+
+        public void drawMap(SpriteBatch spritebatch)
+        {
+            for (int y = 0; y < sizeY; y++)
+            {
+                for (int x = 0; x < sizeX; x++)
+                {
+
+                }
+            }
+        }
+
+
+
         public void Save(StreamWriter writer)
         {
-            writer.WriteLine(sizeX);//SizeX
-            writer.WriteLine(sizeY);//SizeY
-            writer.WriteLine(MapLayers.Count);//NumberOfLayers
+            writer.WriteLine(sizeX);
+            writer.WriteLine(sizeY);
             foreach (var item in MapLayers)
             {
                 item.WriteLayer(writer);               
             }
         }
 
-        public static Map Load(StreamReader reader)
-        {
-            int sX = int.Parse(reader.ReadLine());
-            int sY = int.Parse(reader.ReadLine());
-            Console.WriteLine("Sx " + sX);
-            Map temp = new Map(sX, sY);
-            int layers = int.Parse(reader.ReadLine());
-            for (int i = 0; i < layers; i++)
-            {
-                temp.AddLayer();
-                
-            }
-            foreach (var item in temp.MapLayers)
-            {
-                item.LoadLayer(reader);
-            }
-            return temp;
-        }
+        
     }
 
     internal class Layers
@@ -94,40 +125,10 @@ namespace Editor.MapStuff
                 for (int j = 0; j < sizeX; j++)
                 {
                     writer.Write(terrainData[j, i]);
-                    writer.Write(",");
                 }
                 writer.WriteLine();
 
             }
-            writer.WriteLine(";");
-        }
-
-        public void LoadLayer(StreamReader reader)
-        {
-            //reading the lines into a list           
-            string[] lines = new string[sizeY];
-            for (int i = 0; i < sizeY; i++)
-            {
-                lines[i] = reader.ReadLine();
-            }
-
-            string[][] set = new string[sizeY][];
-            for (int i = 0; i < sizeY; i++)
-            {
-                set[i] = lines[i].Split(',');
-            }
-
-            for (int i = 0; i < sizeY; i++)
-            {
-                for (int j = 0; j < sizeX; j++)
-                {
-                    terrainData[j, i] = int.Parse(set[i][j]);
-                    Console.Write(set[i][j]);
-                }
-                Console.WriteLine();//getting past the ;
-            }
-
-            reader.ReadLine();
         }
         public bool ChangeTile(int x, int y, int data)
         {
@@ -149,8 +150,7 @@ namespace Editor.MapStuff
             }
             return 0;
         }
-
-       
+     
         private bool CheckCollisionAt(int x, int y)
         {
             if (x > 0 && x < sizeX)

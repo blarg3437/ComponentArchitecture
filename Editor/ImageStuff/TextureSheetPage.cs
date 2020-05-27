@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -12,6 +14,7 @@ namespace Editor.ImageStuff
     {
         TextureManager MyManager;
         Dictionary<int, PictureBox> itemsinholder;
+        public string directory { get; private set; }
 
         public int oldoffset;
         public int columns { get; private set; }
@@ -28,7 +31,7 @@ namespace Editor.ImageStuff
         }
 
         public PictureBox getItem(int key) => itemsinholder[key];
-
+        public void SetDirectory(string direct) => directory = direct;
         public void consumeList(List<Image> images, Panel display)
         {
 
@@ -94,6 +97,8 @@ namespace Editor.ImageStuff
             }
             heightofImageStack = yover;
         }
+
+       
 
         public void HideAll()
         {

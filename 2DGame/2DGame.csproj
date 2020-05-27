@@ -46,6 +46,7 @@
     <Compile Include="GameStates\IGameState.cs" />
     <Compile Include="GameStates\Menu.cs" />
     <Compile Include="GameStates\StateController.cs" />
+    <Compile Include="Map\Map.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

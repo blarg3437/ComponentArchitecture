@@ -25,7 +25,11 @@ namespace Editor
         TextureManager manager;
         int mouseXOffset = 0;
         int mouseYOffset = 0;
+        string directory = @"C:\Users\Nicholas\Desktop\Save\Save.txt";
         Graphics g;
+
+        public delegate void clickedWith();
+        public event clickedWith clickedWithTex;
 
         public Form1()
         {
@@ -61,7 +65,7 @@ namespace Editor
             Console.WriteLine("MouseY: " + MousePosition.Y + "LocationY: " + Location.Y + "Top:" + MainDisplay.Top + "Final: " + MouseY);
 
             map.ModifyLayer(0, MouseX - mouseXOffset, MouseY - mouseYOffset, manager.currentTextureData);//make sure to put in collisiomn for the edge of the array
-
+            clickedWithTex();
 
             #region debug
             //This is all debugging-----------------------------
@@ -144,8 +148,9 @@ namespace Editor
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            StreamWriter writer = new StreamWriter(@"C:\Users\Nicholas\Desktop\Save.txt", false, Encoding.Default);
+            StreamWriter writer = new StreamWriter(directory, false, Encoding.Default);
             map.Save(writer);
+            manager.Save(writer);
             writer.Close();
 
         }
@@ -153,6 +158,20 @@ namespace Editor
         private void LayerSelector_Click(object sender, EventArgs e)
         {
           
+        }
+
+        private void exportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            StreamReader reader = new StreamReader(directory);         
+            map = Map.Load(reader);           
+            manager.Load(reader);
+            UpdateScreen();
+            reader.Close();
         }
     }
 }

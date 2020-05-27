@@ -16,8 +16,8 @@ namespace Editor
     public partial class TextureImportForm : Form
     {
         List<Image> textures;
-        public delegate void TexSelSubmit(List<Image> textures, int tsize, string layerName);
-        public event TexSelSubmit Submitted;
+        public delegate void TexSelSubmit(List<Image> textures, int tsize, string layerName, string directory);    
+        public event TexSelSubmit Submitted;    
         int TSize;
         public TextureImportForm()
         {
@@ -27,7 +27,16 @@ namespace Editor
             TexSheetName.MouseClick += ClickOnName;
         }
 
-        private void Submit_Click(object sender, EventArgs e)
+        public TextureImportForm(string directory, int res)
+        {
+            InitializeComponent();
+            textures = new List<Image>();
+            TexLocation.Text = directory;
+            TSizeInX.Text = Convert.ToString(res);
+            TexSheetIn.Checked = true;
+        }
+
+        public void Submit_Click(object sender, EventArgs e)
         {
             //I do not have any handling for a file that is bigger than the specified size...
             //probably handle this by creating a new image from the top left X specified size  
@@ -52,27 +61,29 @@ namespace Editor
 
                 //add a try statement or something here to handle if the boxes arent filled
                 int TWidth = int.Parse(TSizeInX.Text);
-                int THeight = int.Parse(TSizeInY.Text);
+                
                 TSize = TWidth;
                 for (int x = 0; x < selected.Width / TWidth; x++)//here needs to be a tryparse thing to make sure they entered an integer.
                 {
-                    for (int y = 0; y < selected.Height / THeight; y++)
+                    for (int y = 0; y < selected.Height / TWidth; y++)
                     {
                         //you may need to add a method for creating a number for the thing to put in the array? Huh?
-                        Bitmap bit = new Bitmap(TWidth, THeight);
+                        Bitmap bit = new Bitmap(TWidth, TWidth);
                         Graphics g = Graphics.FromImage(bit);
-                        g.DrawImage(selected, new Rectangle(0, 0, TWidth, THeight),
-                            new Rectangle(x * TWidth, y * THeight, TWidth, THeight), 
+                        g.DrawImage(selected, new Rectangle(0, 0, TWidth, TWidth),
+                            new Rectangle(x * TWidth, y * TWidth, TWidth, TWidth), 
                             GraphicsUnit.Pixel);
                         
                         textures.Add(bit);
                     }
                 }
             }
-            Submitted(textures, TSize, TexSheetName.Text);
-            this.Close();
+            Submitted(textures, TSize, TexSheetName.Text, TexLocation.Text);
+          
+            Close();
         }
 
+        
         private void SingleTexIn_CheckedChanged(object sender, EventArgs e)
         {
             foreach (Control item in SizeSelPanel.Controls)

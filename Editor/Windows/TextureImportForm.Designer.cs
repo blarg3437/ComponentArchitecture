@@ -38,8 +38,6 @@
             this.button1 = new System.Windows.Forms.Button();
             this.TSizeInX = new System.Windows.Forms.TextBox();
             this.SizeSelPanel = new System.Windows.Forms.Panel();
-            this.TSizeInY = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
@@ -129,30 +127,12 @@
             // 
             // SizeSelPanel
             // 
-            this.SizeSelPanel.Controls.Add(this.TSizeInY);
-            this.SizeSelPanel.Controls.Add(this.label3);
             this.SizeSelPanel.Controls.Add(this.label2);
             this.SizeSelPanel.Controls.Add(this.TSizeInX);
             this.SizeSelPanel.Location = new System.Drawing.Point(18, 62);
             this.SizeSelPanel.Name = "SizeSelPanel";
             this.SizeSelPanel.Size = new System.Drawing.Size(108, 53);
             this.SizeSelPanel.TabIndex = 7;
-            // 
-            // TSizeInY
-            // 
-            this.TSizeInY.Location = new System.Drawing.Point(61, 18);
-            this.TSizeInY.Name = "TSizeInY";
-            this.TSizeInY.Size = new System.Drawing.Size(32, 20);
-            this.TSizeInY.TabIndex = 9;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(41, 21);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(14, 13);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "X";
             // 
             // label2
             // 
@@ -185,7 +165,6 @@
             this.TexSheetName.Name = "TexSheetName";
             this.TexSheetName.Size = new System.Drawing.Size(100, 20);
             this.TexSheetName.TabIndex = 9;
-            
             // 
             // label4
             // 
@@ -229,8 +208,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox TSizeInX;
         private System.Windows.Forms.Panel SizeSelPanel;
-        private System.Windows.Forms.TextBox TSizeInY;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button1;

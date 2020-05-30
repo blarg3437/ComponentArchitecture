@@ -26,6 +26,14 @@ namespace Editor.MapStuff
             MapLayers.Add(new Layers(sizeX, sizeY, MapLayers.Count));//this creates the layer with knowledge on its level from 1-inf, not 0-inf
         }
 
+        public void RemoveLayer(int index)
+        {
+            if(index < MapLayers.Count)
+            {
+                MapLayers.RemoveAt(index);
+            }
+        }
+
         public bool ModifyLayer(int layer, int x, int y, int data)
         {
             if (MapLayers[layer].ChangeTile(x, y, data))

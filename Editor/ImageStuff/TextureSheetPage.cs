@@ -16,11 +16,13 @@ namespace Editor.ImageStuff
         Dictionary<int, PictureBox> itemsinholder;
         public string directory { get; private set; }
 
-        public int oldoffset;
+        public int totalOffset = 0;
         public int columns { get; private set; }
         public int heightofImageStack { get; private set;}
         public int minvalue{ get; private set; }
         public int maxvalue { get; private set; }
+        public int TopLeftValue;
+        
         
 
         public TextureSheetPage(TextureManager manager, int lastIdUsed)

@@ -1,5 +1,6 @@
 ﻿using Editor.ImageStuff;
 using Editor.MapStuff;
+using Editor.Windows;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,6 +26,8 @@ namespace Editor
         TextureManager manager;
         int mouseXOffset = 0;
         int mouseYOffset = 0;
+        int zoom = 1;
+        int layer = 0;
         string directory = @"C:\Users\Nicholas\Desktop\Save\Save.txt";
         Graphics g;
 
@@ -39,32 +42,32 @@ namespace Editor
             map.AddLayer();
 
             KeyPreview = true;
-            vScrollBar1.Enabled = false;
+           
             MainDisplay.Enabled = false;//making sure you cant click before you load
             ImageHolder.VerticalScroll.Enabled = true;
-            LayerSelector.ReadOnly = true;
+            ImageHolder.AutoScroll = true;
+            MainDisplay.AutoSize = true;
+            
 
             addTexturesToolStripMenuItem.Click += new EventHandler(manager.AddTextureClick);
-
-            tabControl1.SelectedIndexChanged += new EventHandler(manager.TabChangedHandler);
-            vScrollBar1.Scroll += manager.ScrollBarChange;
+            tabControl1.SelectedIndexChanged += new EventHandler(manager.TabChangedHandler);            
             g = MainDisplay.CreateGraphics();
         }
         #region SomePropertiesOfControls
         public TabControl GetTabControl() => tabControl1;
         public Panel getMainDisplay() => MainDisplay;
         public Panel GetTexturePicker() => ImageHolder;
-        public VScrollBar GetTextureScrollBar() => vScrollBar1;
+        
         public Graphics getGraphics() => g;
         #endregion      
 
         private void MainDisplay_Click(object sender, EventArgs e)
         {
-            int MouseX = (MousePosition.X - Location.X - MainDisplay.Left - 6) / manager.TextureSize;//6 and 34 represent the width and height of the border of the window
-            int MouseY = (MousePosition.Y - Location.Y - MainDisplay.Top - 35) / manager.TextureSize;
+            int MouseX = (MousePosition.X - Location.X - MainDisplay.Left - 6)  / manager.TextureSize * zoom;//6 and 34 represent the width and height of the border of the window
+            int MouseY = (MousePosition.Y - Location.Y - MainDisplay.Top - 35)  / manager.TextureSize * zoom;
             Console.WriteLine("MouseY: " + MousePosition.Y + "LocationY: " + Location.Y + "Top:" + MainDisplay.Top + "Final: " + MouseY);
 
-            map.ModifyLayer(0, MouseX - mouseXOffset, MouseY - mouseYOffset, manager.currentTextureData);//make sure to put in collisiomn for the edge of the array
+            map.ModifyLayer(layer, MouseX - mouseXOffset, MouseY - mouseYOffset, manager.currentTextureData);//make sure to put in collisiomn for the edge of the array
             clickedWithTex();
 
             #region debug
@@ -132,9 +135,10 @@ namespace Editor
                     //}
                     if (map.GetTileAt(0,i, j) != 0)
                     {
-                        g.DrawImage(manager.FindMyImage(map.GetTileAt(0, i, j)),
-                            new Rectangle((i) * TextureSize, (j) * TextureSize, TextureSize, TextureSize),
+                        g.DrawImage(manager.FindMyImage(map.GetTileAt(layer, i, j)),
+                            new Rectangle((i) * TextureSize * zoom, (j) * TextureSize * zoom, TextureSize *zoom , TextureSize*zoom),
                                 new Rectangle(0, 0, TextureSize, TextureSize), GraphicsUnit.Pixel);
+                        
                     }
                 }
             }
@@ -148,30 +152,57 @@ namespace Editor
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            StreamWriter writer = new StreamWriter(directory, false, Encoding.Default);
-            map.Save(writer);
-            manager.Save(writer);
-            writer.Close();
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.DefaultExt = directory;
+            sfd.Title = "Save Location";
+            DialogResult dr = sfd.ShowDialog();
 
+            if (dr == DialogResult.OK)
+            {
+                directory = sfd.FileName;
+                StreamWriter writer = new StreamWriter(directory, false, Encoding.Default);
+                map.Save(writer);
+                manager.Save(writer);
+                writer.Close();
+            }
         }
 
         private void LayerSelector_Click(object sender, EventArgs e)
         {
-          
+            manager.TabSelected = LayerSelector.SelectedIndex; 
         }
 
         private void exportToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.InitialDirectory = directory;
+            ofd.Filter = "Save Files(*.txt)|*.txt";
+            if(ofd.ShowDialog() == DialogResult.OK)
+            {
+                directory = ofd.FileName;
+            }
+
             StreamReader reader = new StreamReader(directory);         
             map = Map.Load(reader);           
             manager.Load(reader);
             UpdateScreen();
             reader.Close();
         }
+
+        private void AddLayer_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void RemoveLayer_Click(object sender, EventArgs e)
+        {           
+            
+        }
+       
     }
 }

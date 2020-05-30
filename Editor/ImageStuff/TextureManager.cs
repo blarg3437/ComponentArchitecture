@@ -23,6 +23,7 @@ namespace Editor.ImageStuff
         public int TextureSize { get; private set; }
         public int TabSelected = 0;
         
+        
         List<TextureSheetPage> ListOfPages;
         List<string> Directories;
         List<int> TexturesUsed;
@@ -61,7 +62,7 @@ namespace Editor.ImageStuff
             parent.GetTexturePicker().Invalidate();
             TexturePanel.Enabled = true;
             parent.GetTabControl().Visible = true;
-            parent.GetTextureScrollBar().Enabled = true;
+           
 
 
 
@@ -84,23 +85,7 @@ namespace Editor.ImageStuff
             ListOfPages[TabSelected].ShowAll();
             //What I want to happen is for all images to be hidden, unless they belong to 
             //the selected index's tab, in which they will be shown
-        }
-
-        public void ScrollBarChange(object sender, EventArgs e)
-        {
-            TextureSheetPage selected = ListOfPages[TabSelected];
-            VScrollBar scrollBar = (VScrollBar)sender;
-            int yoffset = -TextureSize * (selected.heightofImageStack * scrollBar.Value) / 100;
-            for (int i = selected.minvalue; i < selected.maxvalue; i++)
-            {
-                PictureBox item = selected.getItem(i);
-                item.Location = new System.Drawing.Point(item.Location.X, item.Location.Y - selected.oldoffset + yoffset);
-            }
-                
-            
-            selected.oldoffset = yoffset;
-        }
-
+        }    
 
         public Image FindMyImage(int index)
         {

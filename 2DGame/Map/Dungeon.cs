@@ -41,5 +41,16 @@ namespace _2DGame.Map
         {
 
         }
+
+        private void DrawMap(SpriteBatch spritebatch)
+        {
+            for (int y = 0; y < sizeY; y++)
+			{
+                for (int x = 0; x < sizeX; x++)
+			    {
+                    spritebatch.Draw(CurrentTexture, )
+			    }
+			}
+        }
     }
 }

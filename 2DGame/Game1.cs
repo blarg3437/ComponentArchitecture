@@ -16,9 +16,11 @@ namespace _2DGame
 
         public Game1()
         {
+            Global.Initialize(this);
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             StateController = new StateController( graphics);
+            
         }
 
         

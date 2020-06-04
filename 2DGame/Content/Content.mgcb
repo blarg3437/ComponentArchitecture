@@ -80,8 +80,3 @@
 /processorParam:TextureFormat=Color
 /build:Item/roguelikeitems.png
 
-#begin TestMonogmae.tmx
-/importer:
-/processor:
-/build:TestMonogmae.tmx
-

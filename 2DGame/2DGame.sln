@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2DGame", "2DGame.csproj", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Editor", "..\Editor\Editor.csproj", "{F78D4352-4740-4DEE-8C8C-A94737299346}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing Environment", "..\Testing Environment\Testing Environment.csproj", "{6BB113B3-DBF1-4BA1-82FD-87F39E3DA585}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,14 @@ Global
 		{F78D4352-4740-4DEE-8C8C-A94737299346}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F78D4352-4740-4DEE-8C8C-A94737299346}.Release|x86.ActiveCfg = Release|Any CPU
 		{F78D4352-4740-4DEE-8C8C-A94737299346}.Release|x86.Build.0 = Release|Any CPU
+		{6BB113B3-DBF1-4BA1-82FD-87F39E3DA585}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BB113B3-DBF1-4BA1-82FD-87F39E3DA585}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BB113B3-DBF1-4BA1-82FD-87F39E3DA585}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6BB113B3-DBF1-4BA1-82FD-87F39E3DA585}.Debug|x86.Build.0 = Debug|Any CPU
+		{6BB113B3-DBF1-4BA1-82FD-87F39E3DA585}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BB113B3-DBF1-4BA1-82FD-87F39E3DA585}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BB113B3-DBF1-4BA1-82FD-87F39E3DA585}.Release|x86.ActiveCfg = Release|Any CPU
+		{6BB113B3-DBF1-4BA1-82FD-87F39E3DA585}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

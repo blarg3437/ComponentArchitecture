@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using MonoGame.Extended.Tiled;
 using MonoGame.Extended.Tiled.Graphics;
 using Editor.MapStuff;
+using _2DGame.Items;
 
 namespace _2DGame.GameStates
 {
@@ -19,17 +20,20 @@ namespace _2DGame.GameStates
         string contentPath;
         Map currentLevel;
 
+        List<BaseEntity> Entities;
        
+        
         public GamePlayLoop(string contentPath, GraphicsDevice graphics)
         {
             this.contentPath = contentPath;
-            
+            Entities = new List<BaseEntity>();
         }
 
         public void Initialize()
         {
             currentLevel = new Map(32,32);
             currentLevel.GenerateMap();
+
         }
         public void Load(ContentManager content)
         {
@@ -38,16 +42,25 @@ namespace _2DGame.GameStates
         }
         public void Update(GameTime gametime)
         {
-
+            foreach (BaseEntity item in Entities)
+            {
+                item.Update(gametime);
+            }
         }
 
         public void Draw(SpriteBatch spritebatch)
         {
-            spritebatch.Draw(texsheet, new Rectangle(0, 0, 64, 64), Color.White);
-            //, new Rectangle(448, 191, 64, 64)
+            foreach (BaseEntity item in Entities)
+            {
+                spritebatch.Draw(texsheet, item.GetPosition() * Global.TextureSize, item.GetSource(), item.GetColor());
+            }
             
         }
 
 
+        public void AddEntity(BaseEntity newentity)
+        {
+            Entities.Add(newentity);
+        }
     }
 }

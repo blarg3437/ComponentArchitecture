@@ -9,7 +9,7 @@ namespace _2DGame
 {
     class Global
     {
-        public static int TextureSize = 64;
+        public static int TextureSize = 24;
         public static Game1 game;//just holding a reference to the game, so anyone can grab it
         public static Random random = new Random();
 

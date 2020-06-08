@@ -19,7 +19,8 @@ namespace _2DGame
             Global.Initialize(this);
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            StateController = new StateController( graphics);
+            StateController = new StateController(graphics);
+            
             
         }
 

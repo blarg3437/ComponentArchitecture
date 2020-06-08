@@ -1,5 +1,9 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace _2DGame.Map
 {
@@ -16,20 +20,30 @@ namespace _2DGame.Map
 
         Level CurrentLevel;
         List<Texture2D> AvailableTextures;
-        Texture2D CurrentTexture;
+        int CurrentTexture;
         int numberoflevels;
         int currentlevelnumber;//which level is this, used to track how many
-        public Dungeon(List<Texture2D> textures, int levelnum)
+        int sizeOfLevelX, sizeOfLevelY;
+        int texSize;
+        public Dungeon(int levelnum)
         {
-            AvailableTextures = textures;
+
             numberoflevels = levelnum;
-            CurrentLevel = new Level();
+            sizeOfLevelX = 40;
+            sizeOfLevelY = 40;
+            CurrentLevel = new Level(sizeOfLevelX, sizeOfLevelY);
             currentlevelnumber = 1;
+            texSize = Global.TextureSize;
         }
 
+        public void setTextures(params Texture2D[] Textures)
+        {
+            AvailableTextures = Textures.ToList<Texture2D>();
+            CurrentTexture = 0;
+        }
         public void StartNewLevel()
         {
-
+            CurrentLevel.setMap(DungeonGenerator.GenerateNewDungeon(sizeOfLevelX, sizeOfLevelY));
         }
 
         public void Update()
@@ -37,20 +51,25 @@ namespace _2DGame.Map
 
         }
 
-        public void Draw(SpriteBatch spritebatch)
+        public void Draw(SpriteBatch spritebatch, int cx, int cy)
         {
-
+            DrawMap(spritebatch, cx, cy);
         }
 
-        private void DrawMap(SpriteBatch spritebatch)
+        private void DrawMap(SpriteBatch spritebatch, int cx, int cy)
         {
-            for (int y = 0; y < sizeY; y++)
-			{
-                for (int x = 0; x < sizeX; x++)
-			    {
-                    spritebatch.Draw(CurrentTexture, )
-			    }
-			}
+
+            
+            for (int y = 0; y < sizeOfLevelY; y++)
+            {
+                for (int x = 0; x < sizeOfLevelX; x++)
+                {              
+                    spritebatch.Draw(AvailableTextures[CurrentTexture],
+                        new Rectangle((x + cx) * texSize, (y + cy) * texSize, texSize, texSize), 
+                        TileDict.GetSourceByInt(CurrentLevel.getTileAt(x,y))
+                        , Color.White);
+                }
+            }
         }
     }
 }

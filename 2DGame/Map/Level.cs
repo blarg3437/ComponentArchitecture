@@ -12,6 +12,7 @@ namespace _2DGame.Map
     {
         int[,] generatedMap;
         int sizeX, sizeY;
+        
         public Level(int sizeX, int sizeY)
         {
             generatedMap = new int[sizeX, sizeY];
@@ -19,22 +20,21 @@ namespace _2DGame.Map
             this.sizeY = sizeY;
         }
 
+        public void setMap(int[,] map) { generatedMap = map; }
         public int getTileAt(int x, int y)
         {
             if(x >= 0 && x < sizeX)
             {
                 if(y >= 0 && y < sizeY)
                 {
-                    return generatedMap[x, y];
+                    
+                    return generatedMap[x, y];                   
                 }
             }
             return -1;//-1 means that it is out of bounds
         }
 
-        public void generateNewLevel()
-        {
-            //generate a map! Fun!
-        }
+       
 
         
         

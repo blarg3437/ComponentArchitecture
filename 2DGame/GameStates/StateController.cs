@@ -26,14 +26,11 @@ namespace _2DGame.GameStates
 
         public void Initialize()
         {
-            gamestates.Add("level1", new GamePlayLoop("Levels/Standard/tilea4", graphics.GraphicsDevice));
-            gamestates.Add("level2", new GamePlayLoop("Item/roguelikeitems", graphics.GraphicsDevice));
+            gamestates.Add("level1", new GamePlayLoop("Levels/Test/GenTest", graphics.GraphicsDevice));            
             gamestates.Add("MainMenu", new Menu("Load"));
 
-
-
-
             theStack.Push(gamestates["level1"]);
+            theStack.Peek().Initialize();
         }
         public void Load(ContentManager content)
         {
@@ -45,22 +42,8 @@ namespace _2DGame.GameStates
 
         public void Update(GameTime gametime)
         {
-            KeyboardState keys = Keyboard.GetState();
-
-            if (keys.IsKeyDown(Keys.Space))
-            {
-                if(theStack.Peek().Equals(gamestates["level1"]))
-                {
-                    Push(gamestates["level2"]);
-                }
-               if(theStack.Peek().Equals(gamestates["level2"]))
-                {
-
-                }
-                
-                
-            }
-
+            KeyboardState keys = Keyboard.GetState();        
+            
             theStack.Peek().Update(gametime);
         }
 
